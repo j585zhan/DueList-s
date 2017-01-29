@@ -7,9 +7,14 @@ public class Event implements Comparable<Event> {
     private String eventName;
     private EventPriority eventPriority;
     
-    public Event() {
+    public Event(int repeat,String name,EventPriority P) {
+        eventRepeatTime=repeat;
+        eventName=name;
+        eventPriority=P;
         
     }
+    
+ 
     
     public void update() {
         eventTimer.update();
