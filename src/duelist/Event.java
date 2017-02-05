@@ -6,12 +6,17 @@ public class Event implements Comparable<Event> {
     private Timer eventTimer;
     private String eventName;
     private EventPriority eventPriority;
+    private long priority;
+    private String Duedate;
     
-    public Event(int repeat,String name,EventPriority P) {
+    //consturctor
+    public Event(int repeat,String name,EventPriority P,String time) {
         eventRepeatTime=repeat;
+        eventTimer= new Timer(time);
         eventName=name;
         eventPriority=P;
-        
+        priority=eventTimer.getMSeconds();
+        Duedate=time;
     }
     
  
@@ -19,14 +24,38 @@ public class Event implements Comparable<Event> {
     public void update() {
         eventTimer.update();
         if (this.TimeLeft() <= 0) {
-            if (eventRepeatTime <= 0) {
-                eventTimer.dueDayUpdate();
-            }
+            
+            eventTimer.dueDayUpdate();
+            
         }
+    }
+    
+    public void finished() {
+    
+    }
+    
+    public long getPriority() {
+        return this.priority;
     }
     
     public String getEventName () {
         return this.eventName;
+    }
+    
+    public Timer getTimer() {
+        return eventTimer;
+    }
+    
+    public int getRepeat() {
+        return eventRepeatTime;
+    }
+    
+    public void decRepeat() {
+        eventRepeatTime--;
+    }
+    
+    public String Duedate() {
+        return Duedate;
     }
     
     public boolean isExpired() {
@@ -37,6 +66,10 @@ public class Event implements Comparable<Event> {
     public long TimeLeft() {
         return eventTimer.getMSeconds();
     }
+    
+    
+    
+    
 
     @Override
     public int compareTo(Event t) {
